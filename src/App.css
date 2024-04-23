@@ -1,13 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
-
-h1 {
-	font-family: "Irish Grover", system-ui;
-	font-weight: 400;
-	font-style: normal;
-  }
-
-  p {
-	font-family: "Julius Sans One", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&family=Julius+Sans+One&display=swap');
+* {
+	margin: 0;
+	padding: 0;
+}
