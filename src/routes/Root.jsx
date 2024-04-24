@@ -1,6 +1,8 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import "../App.css"
 import "../stylesheet/Header.css"
+import { FaBasketShopping } from "react-icons/fa6";
+import Footer from '../components/Footer.jsx'
 
 
 const Root = () => (
@@ -15,14 +17,15 @@ const Root = () => (
             </div>
 			<nav className="navMenu">
 				<NavLink to="/" className="nav-login">Store</NavLink>	
-				<NavLink to="/Cart" className="nav-login">Cart</NavLink>	
-				<NavLink to="/ContactForm" className="nav-login">ContactForm</NavLink>	
+				<NavLink to="/Cart" className="cart"><FaBasketShopping /></NavLink>	
+				<NavLink to="/ContactForm" className="nav-login">Contact</NavLink>	
 			</nav>
             
 		</header>
 		<main>
 			<Outlet />
 		</main>
+        <Footer/>
 	</div>
 )
 

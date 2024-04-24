@@ -22,18 +22,25 @@ const StoreGrid = () => {
 
   return (
     <div>
-      <h2>Products</h2>
-      <ul>
+      <h2 className='products-title'>Products</h2>
+        <section className='products'>
         {products.map(productsData => (
-          <li key={productsData.id}>
-            <div className='productContainer'>
-            <strong>Name:</strong> {productsData.name}
-             <strong>Price:</strong> {productsData.price}
-              <strong>Image:</strong> <img src={productsData.img} alt="productimage"/>
+             <div className='product-card' key={productsData.id}>
+                <img className='product-image' src={productsData.img} alt="productimage"/>    
+                      <div className='product-info'>
+            <h5>{productsData.name}</h5>
+            <h6>{productsData.price}</h6>
+            <div className='addtocart-btn'>
+            <button className='removeOne'>-</button> 
+            <div className='amount'>0</div>
+            <button className='addOne'>+</button>
+            </div>
+           
+                      </div>
+
               </div>
-          </li>
-        ))}
-      </ul>
+         ))}
+        </section>
     </div>
   );
 };
