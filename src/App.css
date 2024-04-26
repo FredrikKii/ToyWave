@@ -3,6 +3,9 @@
 	margin: 0;
 	padding: 0;
 }
+html {
+	scroll-behavior: smooth;
+}
 
 .navMenu {
 	text-align: center;
@@ -13,6 +16,9 @@
 	font-size: 2em;
 	text-decoration: none;
 	color: black;
+	@media (max-width: 440px) {
+		font-size: 1.5em;
+	}
 }
 
 .nav-login {
@@ -41,4 +47,15 @@
 }
 .cart.active {
 	color:blue;
+}
+
+.cart { 
+	margin-top: 20px;
+	margin-right: 20px;
+	font-size: 2em;
+	position: absolute;
+	right: 0;
+	@media (max-width: 440px) {
+		margin-top: 10px;
+	}
 }
