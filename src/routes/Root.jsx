@@ -2,11 +2,12 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import "../App.css"
 import "../stylesheet/Header.css"
 import { FaBasketShopping } from "react-icons/fa6";
-import Footer from '../components/Footer.jsx'
+import Footer from '../components/Footer.jsx';
 
 
 const Root = () => (
 	<div className="app">
+		
 		<header>
             <NavLink to="/Cart" className="cart"><FaBasketShopping /></NavLink>	 
             <div className="logoContainer">

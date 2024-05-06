@@ -1,12 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../data/fire.js';
-import "../stylesheet/StoreGrid.css"
+import "../stylesheet/StoreGrid.css";
 import { CiEdit } from "react-icons/ci";
 import { FaRegTrashCan } from "react-icons/fa6";
+import AddProduct from "../components/AddProduct.jsx";
+import useStore from "../data/store.js";
+import useCartStore from "../data/cartstore.js";
+import EditProduct from "../components/EditProduct.jsx";
+
 
 const StoreGrid = () => {
   const [products, setProducts] = useState([]);
+  const [showAdminActions, setShowAdminActions] = useState(false);
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [editedProductData, setEditedProductData] = useState({});
+  
+  const [addedToCart, setAddedToCart] = useState({});
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setAddedToCart((prevState) => ({
+      ...prevState,
+      [product.id]: true,
+    }));
+
+
+    setTimeout(() => {
+      setAddedToCart((prevState) => ({
+        ...prevState,
+        [product.id]: false,
+      }));
+    }, 300);
+  };
+
+  const { removeProduct } = useStore();
+  const { addToCart } = useCartStore(); 
+
+  const handleSaveProduct = async () => {
+    try {
+      const productRef = doc(db, 'products', editingProduct.id);
+      await updateDoc(productRef, editedProductData);
+      setEditingProduct(null);
+      setShowAddProduct(false);
+      setEditedProductData({});
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingProduct(null);
+    setShowAddProduct(false);
+    setEditedProductData({});
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,30 +70,74 @@ const StoreGrid = () => {
     fetchProducts();
   }, []);
 
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await removeProduct(productId);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
+    setShowAddProduct(true); 
+  };
+
+  const toggleAdminActions = () => {
+    setShowAdminActions(prevState => !prevState);
+    setShowAddProduct(false); 
+  };
+
+  const toggleAddProduct = () => {
+    setShowAddProduct(prevState => !prevState);
+  };
+
   return (
     <div>
       <h2 className='products-title'>Products</h2>
       <div className='addProductContainer'>
-      <button className='addProduct'>Add product</button>
+        <button className='adminLogin' onClick={toggleAdminActions}>
+          {showAdminActions ? "Admin Logout" : "Admin Login"}
+        </button>
+        {showAdminActions && (
+          <button className='addProduct' onClick={toggleAddProduct}>
+            {showAddProduct ? "Cancel" : "Add product"}
+          </button>
+        )}
       </div>
-        <section className='products'>
-        {products.map(productsData => (
-             <div className='product-card' key={productsData.id}>
-                <img className='product-image' src={productsData.img} alt="productimage"/>    
-                      <div className='product-info'>
-                        <h5>{productsData.name}</h5>
-                        <h6>{productsData.price}</h6>
-                        <div className='addtocart-btn'>
-                        <button className='removeOne'>-</button> 
-                        <div className='amount'>0</div>
-                        <button className='addOne'>+</button>
-                        <button className='deleteProduct'><FaRegTrashCan /></button>
-                        <button className='editProduct'><CiEdit /></button>
-                        </div>
-                      </div>
+      {showAddProduct && <AddProduct />}
+      <section className='products'>
+        {products.map(product => (
+          <div className='product-card' key={product.id}>
+            <img className='product-image' src={product.img} alt="productimage"/>    
+            <div className='product-info'>
+              <h5>{product.name}</h5>
+              <h6>${product.price}</h6>
+              <div className='addtocart-btn'>
+                <button className='addtocart-button' onClick={() => handleAddToCart(product)}>
+                  {addedToCart[product.id] ? "+" : "Buy"}
+                </button>
+                {showAdminActions && (
+                  <>
+                    <button className='deleteProduct' onClick={() => handleDeleteProduct(product.id)}>
+                      <FaRegTrashCan />
+                    </button>
+                    <button className='editProduct' onClick={() => handleEditProduct(product)}>
+                      <CiEdit />
+                    </button>
+                  </>
+                )}
               </div>
-         ))}
-        </section>
+            </div>
+          </div>
+        ))}
+      </section>
+      {editingProduct && (
+        <EditProduct
+          product={editingProduct}
+          handleCancelEdit={handleCancelEdit}
+        />
+      )}
     </div>
   );
 };

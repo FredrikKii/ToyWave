@@ -9,7 +9,7 @@ html {
 
 .navMenu {
 	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'Poppins', sans-serif;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -21,6 +21,34 @@ html {
 	}
 }
 
+.navLogin {
+	color: white;
+	text-decoration: none;
+	font-size: 25px;
+	border: none;
+	background: none;
+	font-weight: 600;
+	font-family: 'Poppins', sans-serif;
+  } 
+
+ .navLogin::before {
+	margin-left: auto;
+  }
+  
+  .navLogin::after, .navLogin::before {
+	content: '';
+	width: 0%;
+	height: 2px;
+	background: #f44336;
+	display: block;
+	transition: 0.5s;
+  }
+  
+  .navLogin:hover::after, .navLogin:hover::before {
+	width: 100%;
+  }
+
+/* 
 .nav-login {
 	text-decoration: none;
 	color: black;
@@ -47,7 +75,7 @@ html {
 }
 .cart.active {
 	color:blue;
-}
+} */
 
 .cart { 
 	margin-top: 20px;

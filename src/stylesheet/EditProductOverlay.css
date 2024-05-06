@@ -1,0 +1,72 @@
+.edit-product-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .edit-product-modal {
+    background-color: #fff; /* White background for the modal */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Box shadow for the modal */
+    width: 60%;
+  }
+  
+  .edit-product-modal h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .edit-product-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit-product-modal label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .edit-product-modal input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .edit-product-modal .buttons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .edit-product-modal .buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-product-modal .buttons button.save-btn {
+    background-color: #0095ff;
+    color: #fff;
+  }
+  
+  .edit-product-modal .buttons button.cancel-btn {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .edit-product-modal .buttons button:hover {
+    filter: brightness(0.8); /* Dim the button on hover */
+  }
+  

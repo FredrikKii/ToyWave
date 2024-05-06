@@ -46,23 +46,29 @@ img {
 
 .product-card {
     /* border: 2px solid black; */
-
+    background-color: rgb(255, 255, 255);
     margin: 0 auto;
     margin-top: 10px;
     width: 280px;
     height: 280px;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
     border-radius: 25px 25px 25px 25px;
-    
-   
+    transition: all 0.7s ease-in-out;
+    /* border: 1px solid rgb(30, 255, 0); */
 }
+.product-card:hover {
+  scale: 1.1;
+  transition: 0.8s;
+}
+
  .product-image {
-    width: 240px;
+    width: 210px;
     height: 200px;
-    border-radius: 25px 25px 25px 25px;
+    border-radius: 0px 0px 25px 25px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    
   
   } 
  
@@ -109,6 +115,7 @@ h6 {
   touch-action: manipulation;
   vertical-align: baseline;
   white-space: nowrap;
+  margin: 10px;
 }
 
 .addProduct:hover,
@@ -154,4 +161,52 @@ h6 {
     display: flex;
   justify-content: center; 
   align-items: center; 
+  margin: 10px;
+}
+
+.deleteProduct {
+  margin-left: 110px;
+  height: 20px;
+  width: 20px;
+}
+.editProduct {
+  height: 20px;
+  width: 20px;
+  margin-left: 2px;
+}
+
+.addtocart-button, .deleteProduct, .editProduct {
+  position: relative;
+  display: inline-block;
+  /* margin: 15px; */
+  /* padding: 15px 30px; */
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #30B700;
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid #30B700;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0 #30B700;
+}
+
+.addtocart-button:hover {
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #227e00;
+  border: 2px solid #227e00;
+}
+
+.addtocart-button:active {
+  transform: scale(0.9);
+}
+
+.deleteProduct:hover, .editProduct:hover {
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #227e00;
+  border: 2px solid #227e00;
 }

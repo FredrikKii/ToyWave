@@ -1,0 +1,15 @@
+.footer-container {
+    position: relative;
+  }
+  
+  .footer-text {
+    position: absolute;
+    top: 50px; /* Adjust the top position as needed */
+    left: 20px; /* Adjust the left position as needed */
+    margin: 0px auto;
+    color: white; /* Adjust the color as needed */
+  }
+
+  ul, li {
+    list-style: none;
+  }
