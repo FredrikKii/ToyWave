@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs, doc } from 'firebase/firestore/lite';
 import { db } from '../data/fire.js';
 import "../stylesheet/StoreGrid.css";
 import { CiEdit } from "react-icons/ci";
@@ -8,7 +8,7 @@ import AddProduct from "../components/AddProduct.jsx";
 import useStore from "../data/store.js";
 import useCartStore from "../data/cartstore.js";
 import EditProduct from "../components/EditProduct.jsx";
-
+import DeleteProduct from "../components/DeleteProduct.jsx"; // Import the DeleteProduct component
 
 const StoreGrid = () => {
   const [products, setProducts] = useState([]);
@@ -16,6 +16,7 @@ const StoreGrid = () => {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [editedProductData, setEditedProductData] = useState({});
+  const [deleteProductId, setDeleteProductId] = useState(null); // State to store the ID of the product to be deleted
   
   const [addedToCart, setAddedToCart] = useState({});
 
@@ -70,9 +71,12 @@ const StoreGrid = () => {
     fetchProducts();
   }, []);
 
-  const handleDeleteProduct = async (productId) => {
+  const handleDeleteProduct = async () => {
     try {
-      await removeProduct(productId);
+      await removeProduct(deleteProductId);
+      // Update local state to remove the deleted product
+      setProducts(products.filter(product => product.id !== deleteProductId));
+      setDeleteProductId(null); // Reset deleteProductId after deletion
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -119,7 +123,7 @@ const StoreGrid = () => {
                 </button>
                 {showAdminActions && (
                   <>
-                    <button className='deleteProduct' onClick={() => handleDeleteProduct(product.id)}>
+                    <button className='deleteProduct' onClick={() => setDeleteProductId(product.id)}> {/* Set deleteProductId on click */}
                       <FaRegTrashCan />
                     </button>
                     <button className='editProduct' onClick={() => handleEditProduct(product)}>
@@ -136,6 +140,13 @@ const StoreGrid = () => {
         <EditProduct
           product={editingProduct}
           handleCancelEdit={handleCancelEdit}
+        />
+      )}
+      {deleteProductId && ( // Render DeleteProduct component if deleteProductId is set
+        <DeleteProduct
+          productId={deleteProductId}
+          onDeleteSuccess={() => setDeleteProductId(null)} // Reset deleteProductId after deletion
+          onCancel={() => setDeleteProductId(null)} // Reset deleteProductId on cancellation
         />
       )}
     </div>
